@@ -1,5 +1,9 @@
 * {
   box-sizing: border-box;
+  font-family: Montserrat, sans-serif;
+  letter-spacing: 0.04em;
+  font-size: 16px;
+  color: #2E2F42
 }
 
 .input-wrapper {
@@ -15,7 +19,6 @@
   height: 40px;
   padding-left: 16px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  color: #2E2F42;
   outline: transparent;
 
 }
@@ -37,7 +40,6 @@
 
 /*button*/
 button {
-  display: inline-block;
   background-color: #4E75FF;
   border: none;
   border-radius: 8px;
@@ -46,9 +48,7 @@ button {
   color:#FFFFFF;
   width: 75px;
   height: 40px;
-  font-size: 16px;
   line-height: 1.5;
-  letter-spacing: 0.04em;
 }
 button:hover {
   background-color: #6C8CFF;
@@ -56,4 +56,28 @@ button:hover {
 button:disabled {
   background-color: #CFCFCF;
   color: #989898;
+}
+
+/*timer*/
+.timer {
+  display: flex;
+  gap: 24px;
+  margin-top: 32px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.value {
+  font-size: 40px;
+  line-height: 1.2;
+}
+.field:nth-child(3) .value,
+.field:last-child .value {
+  padding: 0 10.5px;
+}
+.label {
+  text-transform: uppercase;
+  letter-spacing: 0;
 }
