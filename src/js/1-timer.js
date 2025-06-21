@@ -1,53 +1,42 @@
+import iziToast from 'izitoast';
 
-import flatpickr from "flatpickr";
+import 'izitoast/dist/css/iziToast.min.css';
 
-import "flatpickr/dist/flatpickr.min.css";
+import flatpickr from 'flatpickr';
 
-const customAlert = document.querySelector("#custom-alert");
-const buttonCustomAlert = document.querySelector("#close-alert");
+import 'flatpickr/dist/flatpickr.min.css';
 
-
-
-let alertTimeout
-buttonCustomAlert.addEventListener("click", () => {
-  customAlert.classList.add("hidden")
-
-  if (alertTimeout) {
-    clearTimeout(alertTimeout)
-    alertTimeout = null
-  }
-});
-
-function openAlert() {
-  if (alertTimeout) {
-    clearTimeout(alertTimeout);
-  }
-  customAlert.classList.remove("hidden");
-  alertTimeout =  setTimeout(() => {
-    customAlert.classList.add("hidden");  alertTimeout=null}, 5000);
-}
-const startBtn = document.querySelector("button[data-start]");
+const startBtn = document.querySelector('button[data-start]');
 let userSelectedDate = '';
 const options = {
   enableTime: true,
   time_24hr: true,
-  dateFormat: "Y-m-d H:i",
+  dateFormat: 'Y-m-d H:i',
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    userSelectedDate = selectedDates;
-    const selected = selectedDates[0];
+    userSelectedDate = selectedDates[0].getTime();
     const now = Date.now();
-    if (selected < now) {
-      openAlert();
+    if (userSelectedDate < now) {
+      iziToast.error({
+        message: 'Please choose a date in the future',
+        timeout: 4000,
+        position: 'topRight',
+        close: true,
+        backgroundColor: 'rgba(246,73,73,0.77)',
+        messageColor: 'white',
+        class: 'my-toast',
+        rtl: true,
+      });
     }
-    selected < now? startBtn.disabled = true : startBtn.disabled=false;
-  }
+
+    userSelectedDate < now
+      ? (startBtn.disabled = true)
+      : (startBtn.disabled = false);
+  },
 };
 
-
-
-const input = document.querySelector("#datetime-picker");
+const input = document.querySelector('#datetime-picker');
 flatpickr(input, options);
 
 function convertMs(ms) {
@@ -68,7 +57,6 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-
-
-
-
+startBtn.addEventListener('click', () =>
+  convertMs(userSelectedDate.getTime() - new Date().getTime())
+);
