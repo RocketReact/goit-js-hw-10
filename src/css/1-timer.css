@@ -88,3 +88,51 @@ button:disabled {
   text-transform: uppercase;
   letter-spacing: 0;
 }
+
+/*alert*/
+#custom-alert {
+  position: relative;
+  top: -20%;
+  left: 50%;
+  width: 35%;
+  height: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in;
+}
+#custom-alert:hover {
+  transform: scale(1.04);
+}
+.alert-box {
+  display: flex;
+  background-color: rgba(255, 2, 2, 0.78);
+  padding: 20px;
+  border-radius: 10px;
+  font-family: sans-serif;
+  box-shadow: 0 0 10px black;
+  align-items: center;
+  position: absolute;
+
+}
+p {
+  color: #FFFFFF;
+  padding-left: 12px;
+}
+#close-alert {
+  position: relative;
+  background: transparent;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(135, 133, 133, 0.55);
+  height: 40px;
+  width: 40px;
+  color: rgba(135, 133, 133, 0.55);
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 40px;
+  text-align: center;
+}
+#custom-alert.hidden {
+  opacity: 0;
+}

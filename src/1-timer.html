@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="css/1-timer.css">
 <div class="input-wrapper">
 <input type="text" id="datetime-picker" />
-<button type="button" data-start>Start</button>
+<button type="button" data-start >Start</button>
 </div>
 <div class="timer">
   <div class="field">
@@ -25,4 +25,11 @@
   </div>
 </div>
 
-<script src="js/1-timer.js"> </script>
+<div id="custom-alert" class="hidden" >
+  <div class="alert-box" >
+    <button type="button" id="close-alert">&#10005;</button>
+    <p>Please choose date in a feature</p>
+  </div>
+</div>
+
+<script type="module" src="./js/1-timer.js"> </script>
