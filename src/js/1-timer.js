@@ -23,7 +23,7 @@ const options = {
         timeout: 4000,
         position: 'topRight',
         close: true,
-        backgroundColor: 'rgba(246,73,73,0.77)',
+        backgroundColor: 'rgba(244,63,63,0.77)',
         messageColor: 'white',
         class: 'my-toast',
         rtl: true,
