@@ -5,7 +5,7 @@ import 'flatpickr/dist/flatpickr.min.css';
 
 const startBtn = document.querySelector('button[data-start]');
 let userSelectedDate = '';
-
+console.log(userSelectedDate);
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -15,6 +15,7 @@ const options = {
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0].getTime();
     const now = Date.now();
+    startBtn.disabled = userSelectedDate <= now;
     if (userSelectedDate < now) {
       iziToast.error({
         message: 'Please choose a date in the future',
@@ -71,7 +72,6 @@ startBtn.addEventListener('click', () => {
     if (timeDifference <= 0) {
       clearInterval(interval);
       interval = null;
-      startBtn.disabled = false;
       input.disabled = false;
 
       ['days', 'hours', 'minutes', 'seconds'].forEach(key => {
