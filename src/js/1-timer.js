@@ -27,9 +27,6 @@ const options = {
         rtl: true,
       });
     }
-    userSelectedDate < now
-      ? (startBtn.disabled = true)
-      : (startBtn.disabled = false);
   },
 };
 
@@ -63,6 +60,7 @@ startBtn.addEventListener('click', () => {
     clearInterval(interval);
   }
   startBtn.disabled = true;
+  input.disabled = true;
 
   //TODO === Clear interval if time left === 0 => update new value in HTML
   function updateTimer() {
@@ -74,6 +72,7 @@ startBtn.addEventListener('click', () => {
       clearInterval(interval);
       interval = null;
       startBtn.disabled = false;
+      input.disabled = false;
 
       ['days', 'hours', 'minutes', 'seconds'].forEach(key => {
         const element = document.querySelector(`[data-${key}]`);
