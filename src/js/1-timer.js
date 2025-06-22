@@ -1,13 +1,11 @@
 import iziToast from 'izitoast';
-
 import 'izitoast/dist/css/iziToast.min.css';
-
 import flatpickr from 'flatpickr';
-
 import 'flatpickr/dist/flatpickr.min.css';
 
 const startBtn = document.querySelector('button[data-start]');
 let userSelectedDate = '';
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -38,8 +36,8 @@ const options = {
 const input = document.querySelector('#datetime-picker');
 flatpickr(input, options);
 
+//TODO === Convert milliseconds to object vs days, hours, minutes, seconds
 const convertMs = ms => {
-  // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
@@ -57,11 +55,47 @@ const convertMs = ms => {
   return { days, hours, minutes, seconds };
 };
 
-startBtn.addEventListener('click', () => {
-  const userChoosingData = convertMs(userSelectedDate - new Date().getTime());
+let interval = null;
 
+//TODO === Btn listener 'click' => Start Interval
+startBtn.addEventListener('click', () => {
+  if (interval) {
+    clearInterval(interval);
+  }
+  startBtn.disabled = true;
+
+  //TODO === Clear interval if time left === 0 => update new value in HTML
   function updateTimer() {
-    Object.entries(userChoosingData).forEach(([key, value]) => {
+    const currentTime = Date.now();
+    const timeDifference = userSelectedDate - currentTime;
+
+    //TODO === If interval ended => clear interval => show '00' => and success message
+    if (timeDifference <= 0) {
+      clearInterval(interval);
+      interval = null;
+      startBtn.disabled = false;
+
+      ['days', 'hours', 'minutes', 'seconds'].forEach(key => {
+        const element = document.querySelector(`[data-${key}]`);
+        if (element) {
+          element.textContent = '00';
+        }
+      });
+      iziToast.success({
+        message: 'Countdown finished!',
+        timeout: 4000,
+        position: 'topRight',
+        close: true,
+        backgroundColor: 'rgba(82, 196, 26, 0.8)',
+        messageColor: 'white',
+      });
+      return;
+    }
+
+    const timeLeft = convertMs(timeDifference);
+
+    //TODO === Rewrite new value in HTML => using time left
+    Object.entries(timeLeft).forEach(([key, value]) => {
       const element = document.querySelector(`[data-${key}]`);
       if (element) {
         element.textContent = String(value).padStart(2, '0');
@@ -69,23 +103,7 @@ startBtn.addEventListener('click', () => {
     });
   }
 
-  ///////////////// Interval/////////////////
+  updateTimer();
 
-  setInterval(() => {
-    console.log(userChoosingData);
-    if (userChoosingData.seconds > 0) {
-      userChoosingData.seconds--;
-    } else if (userChoosingData.minutes > 0) {
-      userChoosingData.seconds = 59;
-      userChoosingData.minutes--;
-    } else if (userChoosingData.hours > 0) {
-      userChoosingData.minutes = 59;
-      userChoosingData.hours--;
-    } else if (userChoosingData.days > 0) {
-      userChoosingData.hours = 59;
-      userChoosingData.days--;
-    }
-
-    updateTimer(userChoosingData);
-  }, 1000);
+  interval = setInterval(updateTimer, 1000);
 });
