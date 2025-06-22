@@ -4,6 +4,7 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
 const startBtn = document.querySelector('button[data-start]');
+startBtn.disabled = true;
 let userSelectedDate = '';
 console.log(userSelectedDate);
 const options = {
