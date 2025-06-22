@@ -62,12 +62,14 @@ startBtn.addEventListener('click', () => {
 
   function updateTimer() {
     Object.entries(userChoosingData).forEach(([key, value]) => {
-      const element = document.querySelector(`data-${key}`);
+      const element = document.querySelector(`[data-${key}]`);
       if (element) {
         element.textContent = String(value).padStart(2, '0');
       }
     });
   }
+
+  ///////////////// Interval/////////////////
 
   setInterval(() => {
     console.log(userChoosingData);
