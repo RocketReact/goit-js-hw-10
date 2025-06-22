@@ -29,7 +29,6 @@ const options = {
         rtl: true,
       });
     }
-
     userSelectedDate < now
       ? (startBtn.disabled = true)
       : (startBtn.disabled = false);
@@ -39,7 +38,7 @@ const options = {
 const input = document.querySelector('#datetime-picker');
 flatpickr(input, options);
 
-function convertMs(ms) {
+const convertMs = ms => {
   // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
@@ -56,7 +55,35 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
-}
-startBtn.addEventListener('click', () =>
-  convertMs(userSelectedDate.getTime() - new Date().getTime())
-);
+};
+
+startBtn.addEventListener('click', () => {
+  const userChoosingData = convertMs(userSelectedDate - new Date().getTime());
+
+  function updateTimer() {
+    Object.entries(userChoosingData).forEach(([key, value]) => {
+      const element = document.querySelector(`data-${key}`);
+      if (element) {
+        element.textContent = String(value).padStart(2, '0');
+      }
+    });
+  }
+
+  setInterval(() => {
+    console.log(userChoosingData);
+    if (userChoosingData.seconds > 0) {
+      userChoosingData.seconds--;
+    } else if (userChoosingData.minutes > 0) {
+      userChoosingData.seconds = 59;
+      userChoosingData.minutes--;
+    } else if (userChoosingData.hours > 0) {
+      userChoosingData.minutes = 59;
+      userChoosingData.hours--;
+    } else if (userChoosingData.days > 0) {
+      userChoosingData.hours = 59;
+      userChoosingData.days--;
+    }
+
+    updateTimer(userChoosingData);
+  }, 1000);
+});
