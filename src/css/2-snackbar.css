@@ -20,6 +20,24 @@ fieldset {
   height: 78px;
   border: 1px solid #808080;
   border-radius: 4px;
+  padding: 23px;
+
+}
+fieldset label:nth-child(2)  {
+  margin-left: 24px;
+}
+.fieldsetLabel {
+  display: inline-flex;
+  gap: 8px;
+}
+fieldset  .fieldsetLabel:nth-child(2) {
+  padding-right: 47px;
+}
+.input-ratio {
+  border: 1px solid #757575;
+  width: 20px;
+  height: 20px;
+  padding: 6px;
 }
  input {
   border: 1px solid #808080;
@@ -35,7 +53,8 @@ fieldset {
   margin-top: 8px;
 }
 legend {
-  padding: 0;
+  padding: 0 5px;
+  background: #FFFFFF;
 
 }
 
