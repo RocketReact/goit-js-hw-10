@@ -42,6 +42,7 @@ fieldset  .fieldsetLabel:nth-child(2) {
  input {
   border: 1px solid #808080;
   border-radius: 4px;
+   color: #808080;
 }
 
 .firstInput input {
@@ -52,10 +53,26 @@ fieldset  .fieldsetLabel:nth-child(2) {
   margin-bottom: 16px;
   margin-top: 8px;
 }
+.firstInput input:hover, .firstInput input:focus {
+ color: #2E2F42;
+  outline: #4E75FF solid 1px;
+  border: none;
+}
 legend {
   padding: 0 5px;
   background: #FFFFFF;
-
+}
+button {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4E75FF;
+  color: #fff;
+}
+button:hover {
+  background-color: #6C8CFF;
+  cursor: pointer;
 }
 
 
