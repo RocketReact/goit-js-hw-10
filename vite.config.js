@@ -47,8 +47,8 @@ export default defineConfig(
             },
           },
         },
-        outDir: '../docs',
-        emptyOutDir: true,
+        outDir: '../',
+        emptyOutDir: false,
       },
       plugins: [
         injectHTML(),
