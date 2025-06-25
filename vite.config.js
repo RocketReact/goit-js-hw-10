@@ -12,6 +12,11 @@ export default defineConfig(
           ? 'global'
           : '_global']: {},
       },
+      // Добавьте base для GitHub Pages
+      base:
+        command === 'serve'
+          ? '/'
+          : '/goit-js-hw-10/',
       root: 'src',
       build: {
         sourcemap: true,
@@ -47,8 +52,9 @@ export default defineConfig(
             },
           },
         },
-        outDir: '../',
-        emptyOutDir: false,
+        // Измените на dist для gh-pages
+        outDir: '../dist',
+        emptyOutDir: true,
       },
       plugins: [
         injectHTML(),
