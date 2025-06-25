@@ -22,7 +22,7 @@ form.addEventListener('submit', e => {
             position: 'topRight',
             timeout: 2000,
           });
-          reject();
+          reject(inputValue);
         }, inputValue);
       } else if (
         inputRatioValue === 'fulfilled'
@@ -33,16 +33,22 @@ form.addEventListener('submit', e => {
             position: 'topRight',
             timeout: 2000,
           });
-          resolve();
+          resolve(inputValue);
         }, inputValue);
       }
     }
   );
   promise
-    .then(() => {
-      console.log('Promise resolved');
+    .then(delay => {
+      console.log(
+        'Promise resolved:',
+        delay
+      );
     })
-    .catch(() => {
-      console.log('Promise rejected');
+    .catch(delay => {
+      console.log(
+        'Promise rejected:',
+        delay
+      );
     });
 });
