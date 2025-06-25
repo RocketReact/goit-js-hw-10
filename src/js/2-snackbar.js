@@ -13,7 +13,7 @@ form.addEventListener('submit', e => {
     document.querySelector(
       '.input-ratio:checked'
     ).value;
-  //TODO Promise
+  //TODOPromise
   const promise = new Promise(
     (resolve, reject) => {
       if (inputRatioValue === 'rejected') {
