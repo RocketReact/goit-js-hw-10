@@ -1,10 +1,48 @@
-const btnSubmit =
-  document.getElementById('btnSubmit');
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
-btnSubmit.addEventListener('submit', e => {
-  const input = document.getElementById('input');
+const form = document.querySelector('form');
+
+form.addEventListener('submit', e => {
   e.preventDefault();
-  const promise = new Promise((resolve, reject) =>
-    setTimeout(resolve, 1000)
+  const input =
+    document.querySelector('input');
+  const inputValue = Number(input.value);
+
+  const inputRatioValue =
+    document.querySelector(
+      '.input-ratio:checked'
+    ).value;
+  const promise = new Promise(
+    (resolve, reject) => {
+      if (inputRatioValue === 'rejected') {
+        setTimeout(() => {
+          iziToast.error({
+            message: `❌ Rejected promise in ${inputValue}ms`,
+            position: 'topRight',
+            timeout: 2000,
+          });
+          reject();
+        }, inputValue);
+      } else if (
+        inputRatioValue === 'fulfilled'
+      ) {
+        setTimeout(() => {
+          iziToast.success({
+            message: `✅ Fulfilled promise in ${inputValue}ms`,
+            position: 'topRight',
+            timeout: 2000,
+          });
+          resolve();
+        }, inputValue);
+      }
+    }
   );
+  promise
+    .then(() => {
+      console.log('Promise resolved');
+    })
+    .catch(() => {
+      console.log('Promise rejected');
+    });
 });
